@@ -102,6 +102,94 @@ As you can see, the `span` element only takes up as much space as the word **"re
 
 ---
 
+# Understanding `display: inline-block`
+
+A normal **inline element** (like a `span`) behaves like a **word in a sentence**.
+
+It:
+
+* Stays on the same line as other elements.
+* Only takes up as much space as its content needs.
+* **Does not** properly accept `width` and `height`.
+
+For example:
+
+```css
+span {
+  width: 100px;
+  height: 50px;
+}
+```
+
+The `width` and `height` won't work as expected because `span` is an **inline element**.
+
+---
+
+## Why Use `display: inline-block;`?
+
+If you want an inline element to **behave like a box** while **remaining on the same line**, use:
+
+```css
+display: inline-block;
+```
+
+This changes the element so that it:
+
+* Stays on the same line like an **inline** element.
+* Behaves like a **block** element.
+* Accepts `width` and `height`.
+* Allows you to use `padding` and `margin` more like a box.
+
+---
+
+## Think of It Like This
+
+### `display: inline;`
+
+A word in a sentence:
+
+```text
+Hello CSS World
+```
+
+The word **CSS** only takes up the space it needs.
+
+---
+
+### `display: block;`
+
+A large box:
+
+```text
++-----------+
+|   Hello   |
++-----------+
+
++-----------+
+|    CSS    |
++-----------+
+
++-----------+
+|   World   |
++-----------+
+```
+
+Each box starts on a new line.
+
+---
+
+### `display: inline-block;`
+
+A box that stays on the same line as other boxes:
+
+```text
++---------+ +---------+ +---------+
+|  Hello  | |   CSS   | |  World  |
++---------+ +---------+ +---------+
+```
+
+Each box has its own `width`, `height`, `padding`, and `margin`, **but they don't
+
 # Key Takeaways
 
 * **Block-level elements**:

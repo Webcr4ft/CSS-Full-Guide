@@ -1,22 +1,5 @@
 # What Are the Different Types of CSS Combinators?
 
-## Menu
-
-* [Profile](https://www.freecodecamp.org/fcc-97789204-3ba2-43ce-8a4c-c9766d107c7b)
-
-1. [Responsive Web Design Certification](https://www.freecodecamp.org/learn/responsive-web-design-v9)
-2. [What Is CSS?](https://www.freecodecamp.org/learn/responsive-web-design-v9/#lecture-what-is-css)
-
----
-
-> **Interactive Editor**
->
-> Turn static code examples into interactive editors. This allows you to edit and run the code directly on the page.
-
----
-
-# What Are the Different Types of CSS Combinators?
-
 CSS combinators are used to define the relationship between selectors in CSS. They help in selecting elements based on their relationship to other elements, which allows for more precise and efficient styling.
 
 We will discuss some primary CSS combinators and their use cases, starting with the **descendant combinator**.

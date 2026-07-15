@@ -148,6 +148,40 @@ However, if the image is unavailable or not rendered, the square bullets will be
 
 ---
 
+
+# Common `list-style-type` Values
+
+## Ordered List Styles (`<ol>`)
+
+```css
+list-style-type: decimal;      /* 1, 2, 3 */
+list-style-type: upper-alpha;  /* A, B, C */
+list-style-type: lower-alpha;  /* a, b, c */
+list-style-type: upper-roman;  /* I, II, III */
+list-style-type: lower-roman;  /* i, ii, iii */
+```
+
+## Unordered List Styles (`<ul>`)
+
+```css
+list-style-type: disc;         /* ● (Default) */
+list-style-type: circle;       /* ○ */
+list-style-type: square;       /* ■ */
+list-style-type: none;         /* No marker */
+```
+
+# Explanation
+
+- `decimal` → Displays numbers (`1, 2, 3...`).
+- `upper-alpha` → Displays uppercase letters (`A, B, C...`).
+- `lower-alpha` → Displays lowercase letters (`a, b, c...`).
+- `upper-roman` → Displays uppercase Roman numerals (`I, II, III...`).
+- `lower-roman` → Displays lowercase Roman numerals (`i, ii, iii...`).
+- `disc` → Displays filled circular bullets (`●`).
+- `circle` → Displays hollow circular bullets (`○`).
+- `square` → Displays square bullets (`■`).
+- `none` → Removes the list marker completely.
+
 # Summary
 
 The `list-style` shorthand is composed of three individual properties:
@@ -159,3 +193,5 @@ The `list-style` shorthand is composed of three individual properties:
 | `list-style-image` | Replaces the default marker with a custom image. |
 
 Using these properties individually or together gives you complete control over how ordered and unordered lists appear on your webpage.
+
+

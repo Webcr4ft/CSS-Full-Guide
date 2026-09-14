@@ -1,0 +1,426 @@
+# What Are Common Use Cases for Using Floats, and How Do They Work?
+
+## What Are CSS Floats?
+
+- **Floats** are a CSS technique originally designed to allow text to wrap around an element, such as an image.
+- A floated element is moved to the:
+  - Left side of its container, or
+  - Right side of its container.
+- Content that follows the floated element can then flow around it.
+
+Basic syntax:
+
+  float: left;
+
+or:
+
+  float: right;
+
+---
+
+# How Floats Work
+
+When an element is floated:
+
+- It is taken out of the normal document flow.
+- It is pushed to the left or right of its container.
+- Following content can wrap around the floated element.
+- The remaining space can be filled by surrounding content.
+
+### Example
+
+  img {
+    float: left;
+  }
+
+The image moves to the left, and text can flow around it.
+
+---
+
+# Classic Use Case: Text Wrapping Around Images
+
+One of the most common uses of floats is placing an image beside text while allowing the text to wrap around it.
+
+HTML:
+
+  <link rel="stylesheet" href="styles.css">
+
+  <div class="container">
+    <img src="https://placehold.co/150x150" alt="Placeholder Image">
+  </div>
+
+CSS:
+
+  .container {
+    border: 1px solid black;
+    padding: 10px;
+  }
+
+  img {
+    float: left;
+    margin-right: 20px;
+  }
+
+### What Happens?
+
+- The image floats to the left.
+- The text can flow around the image.
+- `margin-right: 20px` creates space between the image and the text.
+
+This technique is still useful in:
+
+- Articles
+- Blogs
+- News pages
+- Text-heavy content
+
+---
+
+# Floats and the Normal Document Flow
+
+A floated element is taken out of the normal document flow.
+
+This can cause an important problem:
+
+**The parent container may not automatically wrap around the floated child.**
+
+Example:
+
+  .container {
+    border: 1px solid black;
+    padding: 10px;
+  }
+
+  img {
+    float: left;
+    margin-right: 20px;
+  }
+
+If the image is the only child of the container, the container may collapse to almost zero height.
+
+### Why?
+
+The floated image is removed from the normal document flow.
+
+The parent container therefore does not calculate its height from the floated child in the usual way.
+
+---
+
+# The Collapsing Parent Problem
+
+Consider:
+
+  <div class="container">
+    <img src="https://placehold.co/150x150" alt="Placeholder Image">
+  </div>
+
+  img {
+    float: left;
+  }
+
+The image is floated.
+
+Because the image is no longer participating in normal flow, the parent may behave as though it has no normal-flow content.
+
+This can cause:
+
+- The parent to collapse in height.
+- Borders to appear incorrectly.
+- Backgrounds to not cover the floated content as expected.
+
+---
+
+# Floats for Multi-Column Layouts
+
+Before Flexbox and CSS Grid became common, floats were also used to create multi-column layouts.
+
+Developers could float multiple elements next to each other.
+
+Example:
+
+  .column {
+    float: left;
+  }
+
+Multiple floated elements could appear horizontally, creating a column-like layout.
+
+### Important
+
+Today, **Flexbox** and **CSS Grid** are generally better choices for creating complex layouts.
+
+However, floats are still important to understand because:
+
+- Older websites may use them.
+- Legacy code may contain floats.
+- Some specific text-wrapping effects still use floats.
+
+---
+
+# The Clearfix Technique
+
+One common solution to the collapsing parent problem is the **clearfix** technique.
+
+Clearfix allows a parent container to properly contain its floated children.
+
+Example:
+
+  <link rel="stylesheet" href="styles.css">
+
+  <div class="container">
+    <img src="https://placehold.co/150x150" alt="Placeholder Image">
+    <p>This is an example of text flowing around a floated image.</p>
+  </div>
+
+CSS:
+
+  .container {
+    border: 1px solid black;
+  }
+
+  /* Clearfix CSS */
+  .container::after {
+    content: "";
+    display: block;
+    clear: both;
+  }
+
+  img {
+    float: left;
+    margin-right: 20px;
+  }
+
+---
+
+# How the Clearfix Works
+
+The clearfix uses the `::after` pseudo-element.
+
+### 1. ::after
+
+  .container::after
+
+- `::after` creates a pseudo-element after the content of the container.
+
+### 2. content
+
+  content: "";
+
+- Makes sure the pseudo-element is generated.
+- The empty string means it does not contain visible text.
+
+### 3. display
+
+  display: block;
+
+- Makes the pseudo-element a block-level element.
+
+### 4. clear
+
+  clear: both;
+
+- Prevents the pseudo-element from appearing beside floated elements.
+- It clears both:
+  - Left floats
+  - Right floats
+
+Together, these properties create the clearfix.
+
+---
+
+# Complete Clearfix Example
+
+HTML:
+
+  <div class="container">
+    <img src="https://placehold.co/150x150" alt="Placeholder Image">
+    <p>
+      This is an example of text flowing around a floated image.
+    </p>
+  </div>
+
+CSS:
+
+  .container {
+    border: 1px solid black;
+  }
+
+  .container::after {
+    content: "";
+    display: block;
+    clear: both;
+  }
+
+  img {
+    float: left;
+    margin-right: 20px;
+  }
+
+### Result
+
+- The image floats to the left.
+- The paragraph flows around the image.
+- The clearfix clears the float after the content.
+- The parent container properly wraps around its floated content.
+- The container's border displays correctly.
+
+---
+
+# What Happens Without Clearfix?
+
+If you remove:
+
+  .container::after {
+    content: "";
+    display: block;
+    clear: both;
+  }
+
+the parent can collapse around floated content.
+
+This can cause the container's border or background to behave incorrectly.
+
+---
+
+# Why Does the Paragraph Help?
+
+In the example:
+
+  <div class="container">
+    <img src="https://placehold.co/150x150" alt="Placeholder Image">
+    <p>This is an example of text flowing around a floated image.</p>
+  </div>
+
+- The image is floated.
+- The paragraph remains in the normal document flow.
+- The paragraph gives the parent some normal-flow content.
+- The collapse may therefore be less noticeable.
+
+The clearfix still ensures that the parent properly contains the floated content.
+
+---
+
+# float Values
+
+The main values to know are:
+
+  float: left;
+
+Moves the element to the left.
+
+  float: right;
+
+Moves the element to the right.
+
+  float: none;
+
+Removes floating and returns the element to its normal behavior.
+
+---
+
+# Float vs Modern Layout Methods
+
+Floats were once commonly used for page layouts.
+
+Today, modern CSS layout methods are usually preferred:
+
+- **Flexbox** → Great for one-dimensional layouts.
+- **Grid** → Great for two-dimensional layouts.
+- **Float** → Still useful for text wrapping and maintaining older layouts.
+
+### Important
+
+Do not automatically use floats for modern complex page layouts when Flexbox or Grid is more appropriate.
+
+---
+
+# Common Use Cases for Floats
+
+## 1. Text Wrapping Around Images
+
+Example:
+
+  img {
+    float: left;
+  }
+
+Text flows around the image.
+
+---
+
+## 2. Older Multi-Column Layouts
+
+Floats were historically used to position multiple elements beside each other.
+
+Example:
+
+  .column {
+    float: left;
+  }
+
+---
+
+## 3. Legacy Websites
+
+Understanding floats is important when:
+
+- Maintaining older websites.
+- Working with older CSS.
+- Fixing existing layouts.
+- Updating legacy projects.
+
+---
+
+# Key Things to Remember
+
+- `float` moves an element to the left or right.
+- Floated elements are taken out of normal document flow.
+- Following content can wrap around floated elements.
+- A classic use case is wrapping text around images.
+- Floats were also historically used for multi-column layouts.
+- Floated children can cause their parent container to collapse.
+- **Clearfix** can solve the collapsing parent problem.
+- `::after` creates the pseudo-element used by the clearfix.
+- `content: ""` makes the pseudo-element exist.
+- `display: block` makes it a block-level element.
+- `clear: both` clears both left and right floats.
+- Flexbox and Grid are generally preferred for modern complex layouts.
+
+# Memory Trick
+
+**Float = Move left/right + Let content wrap**
+
+**Clearfix = Make the parent contain the floats**
+
+Think:
+
+  float: left;
+  → Move element left
+
+  float: right;
+  → Move element right
+
+  clear: both;
+  → Stop both types of floats from affecting what comes after
+
+# Quick Summary
+
+Floats were originally created mainly for **text wrapping around elements such as images**.
+
+Example:
+
+  img {
+    float: left;
+    margin-right: 20px;
+  }
+
+Floats can cause parent containers to collapse because floated elements are removed from normal document flow.
+
+A traditional clearfix can fix this:
+
+  .container::after {
+    content: "";
+    display: block;
+    clear: both;
+  }
+
+Although Flexbox and Grid are now preferred for most modern layouts, understanding floats is still important for **text wrapping, older code, legacy projects, and specific layout effects**.
